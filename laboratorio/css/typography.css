@@ -1,0 +1,33 @@
+:root {
+  --highlight-color: #f3c017;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+}
+
+
+h1,
+h2,
+h3 {
+  font-family: 'Permanent Marker', cursive;
+}
+
+a:link {
+  color: #1a1a1e;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+main h2 {
+  margin-top: 0;
+}
+
+figure {
+  margin: 0;
+}
