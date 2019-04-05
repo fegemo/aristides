@@ -158,6 +158,7 @@
 					for(i = 0; i<orderedElements.length; i++){
 						el = orderedElements[i]
 						if(filterFunction(el)){
+							el.classList.remove('out')
 							filteredElements.push(el)
 							props = getNewProperties(row,col,page)
 
@@ -173,6 +174,7 @@
 							}
 
 						} else {
+							el.classList.add('out')
 							props = {
 								"opacity":"0"
 							}
