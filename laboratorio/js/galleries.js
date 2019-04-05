@@ -31,7 +31,7 @@ function initializeGuggenheim() {
 
 function initializeBaguetteBox() {
   baguetteBox.run('.gallery, .gallery-full', {
-    noScrollbars: true
+    noScrollbars: false
   });
 }
 

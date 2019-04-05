@@ -228,9 +228,7 @@ header .logo {
 
 /* como ajudar */
 #como-ajudar {
-  --leao-width: 460px;
-  display: flex;
-  flex-direction: row;
+  --leao-width: 380px;
   background-color: #b19e70;
   background-image: url(../imagens/recorte-baixo.png);
   background-size: var(--cut-image-width);
@@ -238,18 +236,199 @@ header .logo {
   background-position: bottom;
 }
 
-.leao img {
-  width: 100%;
+.instrucoes {
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background-color: #ffffff14;
+  border: 1px solid #dec17e61;
+  padding-left: 1em;
+}
+
+.leao {
+  float: left;
   min-width: 320px;
   max-width: var(--leao-width);
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+.leao img {
+  width: 100%;
 }
 
 @media (max-width: 620px) {
   #como-ajudar {
     flex-direction: column;
   }
-  .leao img {
+  .leao {
     max-width: 100%;
+    margin-right: 0;
+  }
+}
+
+.passos-doacao {
+  list-style-type: none;
+  font-size: 0.8em;
+  line-height: 1.5em;
+}
+
+.passos-doacao p {
+  text-align: justify;
+}
+
+.passos-doacao li {
+  padding: 0.15em 1em;
+}
+
+.passos-doacao li.ativo {
+  background: #cc8d00;
+  color: white;
+}
+
+.passos-doacao li:not(:last-of-type) {
+  border-bottom: 1px solid #dec17e61;
+}
+
+.passos-doacao li::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.passos-doacao li .icon {
+  font-size: 48px;
+  float: left;
+  padding: 0.25em 0.5em;
+  color: #dec17e;
+}
+
+.passo {
+  font-size: 60%;
+  border: 1px solid #dec17e;
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  text-align: center;
+  line-height: 2em;
+  border-radius: 2px;
+  color: #594312;
+}
+
+.assistir-video {
+  float: right;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  border: 1px solid #594312;
+  color: #594312;
+  font-size: 80% !important;
+  cursor: pointer;
+  margin: 1em 0;
+  position: relative;
+  user-select: none;
+}
+
+.assistir-video .icon {
+  font-size: 1em !important;
+  float: initial !important;
+  color: currentColor !important;
+}
+
+.assistir-video:hover,
+.assistir-video:hover .icon {
+  color: #886415;
+  border-color: currentColor;
+}
+
+.assistir-video:active {
+  top: 1px;
+  left: 1px;
+}
+
+.instrucoes-textuais {
+  flex: 1;
+}
+
+.instrucoes-videos {
+  flex: 1;
+  padding: 1em;
+  margin-left: 1em;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}
+
+.instrucoes-textuais .passos-doacao p img {
+  height: 1em;
+}
+
+.instrucoes-videos video {
+  max-width: 100%;
+  transform: rotateY(-6deg);
+  transform-origin: left;
+  box-shadow: 4px 4px 20px #0009;
+}
+
+.controles-video {
+  display: flex;
+  flex-direction: row;
+  font-size: 1em;
+  padding: 0.25em 0.75em;
+  position: relative;
+}
+
+.controles-video .titulo-video {
+  flex: 1;
+}
+
+.controles-video .icon {
+  transition: all 200ms ease;
+  margin-left: 0.5em;
+  cursor: pointer;
+  position: relative;
+}
+
+.controles-video .icon:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.controles-video .icon:active {
+  left: 1px;
+  top: 1px;
+}
+
+.controles-video .progresso-container {
+  width: 95%;
+  position: relative;
+}
+
+.controles-video .progresso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  width: 0;
+  background-color: #2a0d48;
+  transition: all 500ms linear;
+}
+
+@media (max-width: 960px) {
+  .instrucoes {
+    flex-direction: column;
+  }
+  .instrucoes-videos {
+    order: 0;
+    position: static;
+    margin: 0;
+  }
+  .instrucoes-videos video {
+    transform: initial;
+  }
+  .instrucoes-textuais {
+    order: 1;
   }
 }
 
