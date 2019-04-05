@@ -4,14 +4,15 @@ const guggenheim = window.guggenheim;
 const paginate = window.paginate;
 const baguetteBox = window.baguetteBox;
 
+const windowWidth = document.documentElement.offsetWidth;
 
 function initializeGuggenheim() {
   const gallery = guggenheim('#projects-gallery', {
     selector: '.guggenheim-item',
     slider: '.guggenheim-slider',
     rows: 4,
-    cols: 3,
-    width: 500,
+    cols: windowWidth <= 450 ? 2 : 3,
+    width: Math.min(500, windowWidth),
     height: 400
   });
 
@@ -31,7 +32,7 @@ function initializeGuggenheim() {
 
 function initializeBaguetteBox() {
   baguetteBox.run('.gallery, .gallery-full', {
-    noScrollbars: false
+    noScrollbars: true
   });
 }
 

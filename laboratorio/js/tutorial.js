@@ -1,4 +1,5 @@
 const videoEl = document.querySelector('.instrucoes-videos video');
+const tituloEl = document.querySelector('.instrucoes-videos .titulo-video');
 const assistirVideos = document.querySelectorAll('.assistir-video');
 const progressoEl = document.querySelector('.instrucoes-videos .progresso');
 const playEl = document.querySelector('.instrucoes-videos .controles-video .icon-Play');
@@ -37,10 +38,12 @@ export default function tutorial() {
     passoEl.classList.add('ativo');
 
     const videoName = e.currentTarget.dataset.video;
+    const videoDesc = e.currentTarget.dataset.nome;
     videoEl.src = `videos/${videoName}.mp4`;
     videoEl.play();
     resetProgress();
     playEl.classList.add('icon-Pause');
+    tituloEl.innerHTML = videoDesc;
 
     // se a largura for menor que 960px, rolar para mostrar o vídeo
     if (window.innerWidth <= 960) {
