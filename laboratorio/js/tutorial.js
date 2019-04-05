@@ -49,16 +49,16 @@ export default function tutorial() {
   }));
 
   // define a largura e altura do elemento de vídeo pra evitar FoUC
-  videoEl.oncanplaythrough = e => {
-    const styles = getComputedStyle(videoEl);
-    videoDimensions = {
-      width: styles.width,
-      height: styles.height
-    };
-
-    videoEl.style.width = videoDimensions.width;
-    videoEl.style.height = videoDimensions.height;
-  }
+  // videoEl.oncanplaythrough = e => {
+  //   const styles = getComputedStyle(videoEl);
+  //   videoDimensions = {
+  //     width: styles.width,
+  //     height: styles.height
+  //   };
+  //
+  //   videoEl.style.width = videoDimensions.width;
+  //   videoEl.style.height = videoDimensions.height;
+  // }
 
   videoEl.ondblclick = e => {
     fullScreen(videoEl);
