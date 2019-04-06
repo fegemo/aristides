@@ -87,5 +87,6 @@ export default function ohNooo() {
     }
   });
 
-  window.removeEventListener("shake", oraNoWry);
+  new Shake().start();
+  window.addEventListener("shake", oraNoWry);
 }
