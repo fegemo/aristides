@@ -665,6 +665,10 @@
 			if (options.rows != "auto" && (measurements.height+measurements.verticalMargin)>containerDimensions.height/options.rows)
 				measurements.height = Math.floor(containerDimensions.height/options.rows) - measurements.extraHeight - measurements.verticalMargin
 
+			if (options.forceElementHeight) {
+				measurements.height = options.forceElementHeight;
+			}
+
 			for(i=0;i<elements.length;i++)
 				setInitialElementStyle(elements[i],measurements.width,measurements.height)
 
@@ -686,7 +690,8 @@
 			'easing':'ease',
 			'slider':'div.guggenheim-slider',
 			'width':null,
-			'height':null
+			'height':null,
+			'forceElementHeight':null
 		},opts)
 
 		//set up container

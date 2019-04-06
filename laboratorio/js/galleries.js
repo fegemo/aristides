@@ -58,7 +58,8 @@ function getFullGaleryConfig(screenWidth) {
     rows: 4,
     cols: config.pictures,
     width: Math.min(config.pictures * config.pictureWidth, screenWidth),
-    height: 400
+    height: 400,
+    forceElementHeight: 100
   };
 }
 
@@ -82,7 +83,7 @@ function expandImages() {
       const thumbFileName = `imagens/${folder}/thumb/foto${index}.jpg`;
       const template = `
         <a href="${largeFileName}" class="guggenheim-item ${folder}" title="${description}">
-          <img src="${thumbFileName}" alt="${description}">
+          <img data-delayed="${thumbFileName}" alt="${description}">
         </a>`;
 
       galleryContent += template;
@@ -100,12 +101,20 @@ function expandImages() {
 
   shuffle(galleryEl);
 
-  const firstImages = Array.from(galleryEl.querySelectorAll('.guggenheim-item')).slice(0, 20).map(el => el.firstElementChild);
+  const loadBulkSize = 20;
+  const allImages = Array.from(galleryEl.querySelectorAll('.guggenheim-item')).map(el => el.firstElementChild);
+  const firstImages = allImages.slice(0, loadBulkSize);
   const firstImagesPromises = firstImages.map(el => new Promise((resolve, reject) => {
-    el.onload = () => resolve()
+    el.onload = () => resolve();
     el.onerror = () => reject();
   }));
-  firstImagesPromises.push(new Promise(resolve => setTimeout(() => resolve(), 600)));
+
+  for (let bulk = 0; bulk * loadBulkSize < allImages.length; bulk++) {
+    setTimeout(() => {
+      const bulkImages = allImages.slice(bulk * loadBulkSize, (bulk + 1) * loadBulkSize);
+      bulkImages.forEach(el => el.src = el.dataset.delayed);
+    }, bulk * 500);
+  }
 
   return Promise.all(firstImagesPromises);
 }

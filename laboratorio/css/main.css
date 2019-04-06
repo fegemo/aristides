@@ -16,7 +16,7 @@ body {
 header {
   color: #efefef;
   background-color: #365c72e0;
-  background-image: url(../imagens/recorte-baixo.png), url(../imagens/foto-criancas.jpg);
+  background-image: url(../imagens/recorte-baixo.png), url(../imagens/foto-biblioteca.jpg);
   background-size: var(--cut-image-width), cover;
   background-repeat: repeat-x, no-repeat;
   background-position: left bottom, left top;
