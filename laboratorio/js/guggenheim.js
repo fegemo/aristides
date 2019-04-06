@@ -242,8 +242,10 @@
 
 					filteredElements = orderedElements = []
 
-					for(i = 0;i<elements.length;i++)
+					for(i = 0;i<elements.length;i++) {
 						filteredElements.push(elements[i])
+						elements[i].classList.remove('out')
+					}
 
 					orderedElements = filteredElements
 

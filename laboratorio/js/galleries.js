@@ -4,7 +4,63 @@ const guggenheim = window.guggenheim;
 const paginate = window.paginate;
 const baguetteBox = window.baguetteBox;
 
-const windowWidth = document.documentElement.offsetWidth;
+const windowWidth = () => document.documentElement.offsetWidth;
+const fullGalleryPicturesPerRow = [
+  {
+    minWindowWidth: 1600,
+    pictures: 6,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 1200,
+    pictures: 5,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 1080,
+    pictures: 4,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 800,
+    pictures: 3,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 620,
+    pictures: 2,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 450,
+    pictures: 3,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 320,
+    pictures: 2,
+    pictureWidth: 150
+  },
+  {
+    minWindowWidth: 0,
+    pictures: 1,
+    pictureWidth: 150
+  }
+];
+let currentFullGalleryConfig = null;
+let fullGallery = null;
+
+function getFullGaleryConfig(screenWidth) {
+  const config = fullGalleryPicturesPerRow.find(item => screenWidth >= item.minWindowWidth)
+  return {
+    selector: '.guggenheim-item',
+    slider: '.guggenheim-slider',
+    rows: 4,
+    cols: config.pictures,
+    width: Math.min(config.pictures * config.pictureWidth, screenWidth),
+    height: 400
+  };
+}
 
 function expandImages() {
   const galleryEl = document.querySelector('.gallery-full .guggenheim-slider');
@@ -45,46 +101,51 @@ function expandImages() {
   shuffle(galleryEl);
 }
 
-function initializeGuggenheim() {
-  const gallery = guggenheim('#projects-gallery', {
-    selector: '.guggenheim-item',
-    slider: '.guggenheim-slider',
-    rows: 4,
-    cols: windowWidth <= 450 ? 2 : 3,
-    width: Math.min(500, windowWidth),
-    height: 400
-  });
+function filterGuggenheim(e) {
+  const filter = e.target.dataset.guggenheim;
+  if (filter) {
+    fullGallery.filter(filter);
+  } else {
+    fullGallery.reset();
+  }
+  initializeBaguetteBox();
+}
 
-  const pagination = paginate('#gallery-full-pagination', gallery, {
+function initializeGuggenheim() {
+  const config = getFullGaleryConfig(windowWidth());
+  fullGallery = guggenheim('#projects-gallery', config);
+  const pagination = paginate('#gallery-full-pagination', fullGallery, {
     limitButtons: false
   });
+  fullGallery.reload(true);
+
   const filters = document.querySelectorAll('[data-guggenheim]');
-  filters.forEach(el => el.addEventListener('click', e => {
-    const filter = e.target.dataset.guggenheim;
-    if (filter) {
-      gallery.filter(filter);
-    } else {
-      gallery.reset();
-    }
-    initializeBaguetteBox();
-  }));
+  filters.forEach(el => el.removeEventListener('click', filterGuggenheim));
+  filters.forEach(el => el.addEventListener('click', filterGuggenheim));
+
+  return config;
 }
 
 function initializeBaguetteBox() {
-  console.log('initializeBaguetteBox called');
-
-
   baguetteBox.run('.gallery, .gallery-full', {
     noScrollbars: true,
     ignoreClass: 'out'
   });
 }
 
+function windowResized(e) {
+  const newConfig = getFullGaleryConfig(window.innerWidth);
+  if (newConfig !== currentFullGalleryConfig) {
+    currentFullGalleryConfig = initializeGuggenheim();
+  }
+}
 
 export default function galleries() {
   expandImages();
   setTimeout(() => {
-    initializeGuggenheim();
+    currentFullGalleryConfig = initializeGuggenheim();
     initializeBaguetteBox();
+
+    window.addEventListener('resize', windowResized);
   }, 600);
 }
