@@ -99,6 +99,15 @@ function expandImages() {
   };
 
   shuffle(galleryEl);
+
+  const firstImages = Array.from(galleryEl.querySelectorAll('.guggenheim-item')).slice(0, 20).map(el => el.firstElementChild);
+  const firstImagesPromises = firstImages.map(el => new Promise((resolve, reject) => {
+    el.onload = () => resolve()
+    el.onerror = () => reject();
+  }));
+  firstImagesPromises.push(new Promise(resolve => setTimeout(() => resolve(), 600)));
+
+  return Promise.all(firstImagesPromises);
 }
 
 function filterGuggenheim(e) {
@@ -141,11 +150,11 @@ function windowResized(e) {
 }
 
 export default function galleries() {
-  expandImages();
-  setTimeout(() => {
-    currentFullGalleryConfig = initializeGuggenheim();
-    initializeBaguetteBox();
+  expandImages().
+    then(() => {
+      currentFullGalleryConfig = initializeGuggenheim();
+      initializeBaguetteBox();
 
-    window.addEventListener('resize', windowResized);
-  }, 600);
+      window.addEventListener('resize', windowResized);
+    });
 }

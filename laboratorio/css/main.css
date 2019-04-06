@@ -547,6 +547,8 @@ header .logo {
 
 #projects-gallery {
   position: relative;
+  height: 400px;
+  overflow: hidden;
 }
 
 #gallery-full-pagination {
