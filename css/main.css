@@ -612,6 +612,10 @@ header .logo {
   color: var(--highlight-color);
 }
 
+a[href^="tel:"] {
+  white-space: nowrap;
+}
+
 /* footer */
 footer {
   padding: 1em;
