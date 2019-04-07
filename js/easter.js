@@ -14,7 +14,7 @@ function oraNoWry() {
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
   const stickerWidth = 200;
-  const stickerDuration = 1300;
+  const stickerDuration = 3200;
   const numberOfStickers = Math.round(Math.random() * 30) + 20;
   for (let i = numberOfStickers; i >= 0; i--) {
     const imgEl = document.createElement("img");
@@ -27,12 +27,12 @@ function oraNoWry() {
     imgEl.style.left = Math.random() * (windowWidth - stickerWidth) + "px";
     imgEl.style.opacity = 1;
     imgEl.style.transition = `all ${stickerDuration *
-      (Math.random() * 1.5)}ms ease-out`;
+      (Math.random() * 1.5)}ms cubic-bezier(.4,.8,.29,.94)`;
     document.body.appendChild(imgEl);
 
     setTimeout(() => {
       imgEl.style.top = startY + windowHeight + 600 + "px";
-      imgEl.style.opacity = 0;
+      imgEl.style.opacity = 0.6;
       imgEl.style.transform = `rotate(${Math.random() * 2 + 1}turn)`;
 
       setTimeout(() => {
